@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>七夕快乐~</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .bg {
+        width: 100%;
+        height: 100vh;
+        background: url("./img/bg.png") no-repeat top center;
+        background-size: cover;
+        position: relative;
+      }
+      .money {
+        width: 4rem;
+        line-height: 0.88rem;
+        background-color: #ffff00;
+        border: solid 2px black;
+        border-radius: 0.08rem;
+        text-align: center;
+        font-size: 0.3rem;
+        position: absolute;
+        bottom: 3.4rem;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .hint {
+        font-size: 0.32rem;
+        color: #ffff00;
+        position: absolute;
+        bottom: 2.6rem;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="bg">
+      <div class="money" id="money">恭喜你抽中了520元</div>
+      <div class="hint">抽到截图给我，嘿嘿</div>
+    </div>
+    <script>
+      const WIDTH = 750; //设计稿尺寸
+      const setView = () => {
+        document.documentElement.style.fontSize =
+          (100 * screen.width) / WIDTH + "px";
+      };
+      window.onorientationchange = setView;
+      window.addEventListener("resize", () => {
+        setView();
+      });
+      setView();
+
+      function sum(m, n) {
+        let money = document.getElementById("money");
+        var num = Math.floor(Math.random() * (m - n) + n);
+        if (localStorage.getItem("flag")) {
+          money.innerText =
+            `恭喜你抽中了` + localStorage.getItem("flag") + "元";
+        } else {
+          money.innerText = `恭喜你抽中了` + num + "元";
+          localStorage.setItem("flag", num);
+        }
+      }
+      sum(100, 520);
+    </script>
+  </body>
+</html>
